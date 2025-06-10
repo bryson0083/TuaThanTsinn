@@ -1,0 +1,19 @@
+# Prefect 配置文件
+# 建議prefect.deployments.steps.set_working_directory參數直接指定絕對路徑。
+pull:
+  - prefect.deployments.steps.set_working_directory:
+      directory: "/Users/bryson0083/projects/TuaThanTsinn/src/TuaThanTsinn"
+
+
+# 流程部署
+deployments:
+  - name: "flow01"
+    entrypoint: "flow01/deploy.py:do_flow01"
+    description: "每日執行flow 01"
+    schedule:
+      cron: "0 16 * * 1-5"   # 週一到週五下午4:00
+      timezone: "Asia/Taipei"
+    work_pool:
+      name: "default"
+    parameters: {}
+    tags: ["flow01", "daily"]
