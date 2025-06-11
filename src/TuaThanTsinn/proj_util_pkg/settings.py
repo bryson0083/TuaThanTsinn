@@ -32,4 +32,4 @@ class ProjEnvSettings:
 settings = ProjEnvSettings()
 
 print(f"[環境變數]PROJECT_ROOT: {os.environ.get('PROJECT_ROOT')}")
-print(f"[環境變數]PREFECT_API_URL: {os.environ.get('PREFECT_API_URL')}")
+# print(f"[環境變數]PREFECT_API_URL: {os.environ.get('PREFECT_API_URL')}")

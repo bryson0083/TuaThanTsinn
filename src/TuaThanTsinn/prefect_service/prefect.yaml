@@ -17,3 +17,13 @@ deployments:
       name: "default"
     parameters: {}
     tags: ["flow01", "daily"]
+  - name: "ANA001_台股選股"
+    entrypoint: "ANA001_台股選股/deploy.py:do_ana001_flow"
+    description: "ANA001_台股選股~KD選股"
+    schedule:
+      cron: "0 23 * * 1-6"   # 週一到週六晚上11:00
+      timezone: "Asia/Taipei"
+    work_pool:
+      name: "default"
+    parameters: {}
+    tags: ["ANA001_台股選股", "KD選股", "daily"]
