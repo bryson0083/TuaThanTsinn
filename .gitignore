@@ -20,5 +20,6 @@ data/
 # other files
 .DS_Store
 output/
+temp/
 external_data/
 *_executed.ipynb
