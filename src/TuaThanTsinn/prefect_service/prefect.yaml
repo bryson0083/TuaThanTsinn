@@ -17,9 +17,10 @@ deployments:
       name: "default"
     parameters: {}
     tags: ["flow01", "daily"]
+
   - name: "ANA001_台股選股"
     entrypoint: "ANA001_台股選股/deploy.py:do_ana001_flow"
-    description: "ANA001_台股選股~KD選股"
+    description: "ANA001_台股選股"
     schedule:
       cron: "0 23 * * 1-6"   # 週一到週六晚上11:00
       timezone: "Asia/Taipei"
@@ -27,9 +28,10 @@ deployments:
       name: "default"
     parameters: {}
     tags: ["ANA001_台股選股", "KD選股", "daily"]
+
   - name: "ANA002_台股大盤晴雨表"
     entrypoint: "ANA002_台股大盤晴雨表/deploy.py:do_ana002_flow"
-    description: "ANA002_台股大盤晴雨表~台股晴雨表_景氣對策燈號"
+    description: "ANA002_台股大盤晴雨表"
     schedule:
       cron: "2 23 * * 1-6"   # 週一到週六晚上11:02
       timezone: "Asia/Taipei"
@@ -37,3 +39,14 @@ deployments:
       name: "default"
     parameters: {}
     tags: ["ANA002_台股大盤晴雨表", "台股晴雨表_景氣對策燈號", "daily"]
+
+  - name: "ANA003_麥克連大盤脈動"
+    entrypoint: "ANA003_麥克連大盤脈動/deploy.py:do_ana003_flow"
+    description: "ANA003_麥克連大盤脈動"
+    schedule:
+      cron: "5 23 * * 1-6"   # 週一到週六晚上11:05
+      timezone: "Asia/Taipei"
+    work_pool:
+      name: "default"
+    parameters: {}
+    tags: ["ANA003_麥克連大盤脈動", "麥克連大盤脈動_大盤指數收盤資訊", "daily"]
