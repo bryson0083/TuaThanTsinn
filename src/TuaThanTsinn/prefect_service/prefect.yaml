@@ -50,3 +50,25 @@ deployments:
       name: "default"
     parameters: {}
     tags: ["ANA003_麥克連大盤脈動", "麥克連大盤脈動_大盤指數收盤資訊", "daily"]
+
+  - name: "DPL001_台股數據收集"
+    entrypoint: "DPL001_台股數據收集/deploy.py:do_dpl001_flow"
+    description: "DPL001_台股數據收集"
+    schedule:
+      cron: "10 23 * * 1-6"   # 週一到週六晚上11:10
+      timezone: "Asia/Taipei"
+    work_pool:
+      name: "default"
+    parameters: {}
+    tags: ["DPL001_台股數據收集", "daily"]
+  
+  - name: "DPL001_台股數據收集_鉅亨網題材來源"
+    entrypoint: "DPL001_台股數據收集/deploy.py:do_dpl001_flow_topic"
+    description: "DPL001_台股數據收集_鉅亨網題材來源"
+    schedule:
+      cron: "0 22 * * 6"   # 週六晚上10:00
+      timezone: "Asia/Taipei"
+    work_pool:
+      name: "default"
+    parameters: {}
+    tags: ["DPL001_台股數據收集_鉅亨網題材來源", "weekly"]
