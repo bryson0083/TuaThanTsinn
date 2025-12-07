@@ -615,7 +615,7 @@ wheels = [
 
 [[package]]
 name = "finlab"
-version = "1.3.0"
+version = "1.5.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cython" },
@@ -629,14 +629,18 @@ dependencies = [
     { name = "tqdm" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f6/bf/66c7af14f533a2d75ef48db163e75da392c4d7175239e5a291c888ba88c4/finlab-1.3.0-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:e070af600f1fac8e5457604c52dd9cfc5da2fb66054a3cc81a323349d1baaf0f", size = 2855824, upload-time = "2025-06-05T19:44:45.959Z" },
-    { url = "https://files.pythonhosted.org/packages/45/10/558c216cb4abaffb7d5ba4151dd3562c295a2b6f6b17315ab0a7b81573a4/finlab-1.3.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7a537edf0eea82ed0dcb7f99f42737f6b8b92bdb22f73a11462ef8e6d4299a32", size = 5727117, upload-time = "2025-06-05T19:44:50.682Z" },
-    { url = "https://files.pythonhosted.org/packages/3d/1c/961d1d32dc855f8184be085035749dc2360e82ceb758e6003fbcb6b7c07f/finlab-1.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c3b0d83feae45bb60583d8b25b6e1afef341598dea1b2f89bc009f438a42a8b0", size = 5876707, upload-time = "2025-06-05T19:44:52.679Z" },
-    { url = "https://files.pythonhosted.org/packages/7e/ab/323b70496a7b3fd40d5dbaf52169ffdfdeeb7291b5215cdbfba86c8dfe42/finlab-1.3.0-cp312-cp312-win_amd64.whl", hash = "sha256:06c386704faf466f351bc4a170516029e26b231896ea5014ed4083ef53cf1979", size = 2241641, upload-time = "2025-06-05T19:44:54.332Z" },
-    { url = "https://files.pythonhosted.org/packages/df/ca/4f496993e90cbdd06cf6ae360ef4c7fd7fdfa3ecea3ca25222b928470b3a/finlab-1.3.0-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:2300d77d39a1d955dc52bce19de921cc83a5c7cba9140b871476ab26709d3b71", size = 2838324, upload-time = "2025-06-05T19:44:56.524Z" },
-    { url = "https://files.pythonhosted.org/packages/db/14/ba67c10abd99d55d75b31f54b009ad12218c6679c679a366702b133be413/finlab-1.3.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:eccd732633d7658c4d8d559deaaafd7409fc5401463b5ed5537db6c6fb1a6133", size = 5693830, upload-time = "2025-06-05T19:44:58.851Z" },
-    { url = "https://files.pythonhosted.org/packages/bc/29/d2022bb48c48566fec7f324e89d4363bdd9592787d4fa406916481c0e40a/finlab-1.3.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ebb0c9bf58777eacdb0bd3a4ee0604943c12e266330cf233ddf82f1b9b6616f2", size = 5854034, upload-time = "2025-06-05T19:45:00.851Z" },
-    { url = "https://files.pythonhosted.org/packages/97/c8/23b1f184269c0d4b715d5e8ec2249707a60edf84a3fc7c05080065284314/finlab-1.3.0-cp313-cp313-win_amd64.whl", hash = "sha256:67ef049afa80bec3bc11f2754536a1abb630e1ceed0bfea4b8b30b43e8d9fc24", size = 2237696, upload-time = "2025-06-05T19:45:02.83Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/f8/25dd194110186615fb677a47db7f21b816eacaf1fce1920c4937160ae6a0/finlab-1.5.5-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:7496fabdc71ab16ebf1e81de23419a701561a8232d6d1a0cf75f722294e5d46e", size = 3085433, upload-time = "2025-11-21T13:42:36.233Z" },
+    { url = "https://files.pythonhosted.org/packages/77/9b/870d485b4e3f59b4c866d1252f46337aaed09b1efb4b0cc2f97bbbd0ec2e/finlab-1.5.5-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d7bc963c11df76035b585bc3bcf9babd614090d40b44345cf1f9b96b0808cef4", size = 6496284, upload-time = "2025-11-21T13:42:37.607Z" },
+    { url = "https://files.pythonhosted.org/packages/b8/08/6d172bf5c152f72760a730829f75fcc308e40d11963c42b3f044faed9c0f/finlab-1.5.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:e8effb603c044530480a445931f75d5077062974e682109343cf688870317139", size = 6717582, upload-time = "2025-11-21T13:42:39.145Z" },
+    { url = "https://files.pythonhosted.org/packages/50/fa/03c1b3d3f35efc3c41b3df63a22ece7a1f3fdef487fab10b9cb65c8c0207/finlab-1.5.5-cp312-cp312-win_amd64.whl", hash = "sha256:e3aa985c38bc0a89c315fbb685cf6b2edeedc1fe212e9d6a1e2bc856f242edc8", size = 2351833, upload-time = "2025-11-21T13:42:40.851Z" },
+    { url = "https://files.pythonhosted.org/packages/27/62/c51ada7ff64d7c6a0bedff53ccff0bf024bd424f3d6827ab527632776f75/finlab-1.5.5-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:0efc3e614448a104f7214b6e802339347cf0ed1c90fe61f332e8f7656b6a597e", size = 3067714, upload-time = "2025-11-21T13:42:42.364Z" },
+    { url = "https://files.pythonhosted.org/packages/01/2e/1ae1892485b444dbf1768d805261c65d4fb5320beec990d041ea39414d78/finlab-1.5.5-cp313-cp313-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:dd6aaced39249af5236d944d8e3c004813d3bcd3a550d7399e67549f6c3c4b8c", size = 6509623, upload-time = "2025-11-21T13:42:43.714Z" },
+    { url = "https://files.pythonhosted.org/packages/80/72/83634227b1adee2e3b99af9740d2ba57c645a56b37535713aca9e1122973/finlab-1.5.5-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:1dc7c0fa2265419800d381cc8a827bfeb8fd41907f6d203351fa451998b1ea02", size = 6721877, upload-time = "2025-11-21T13:42:45.473Z" },
+    { url = "https://files.pythonhosted.org/packages/26/2c/9ee02ff2fb4a9dce2257675a9c1463c1fc86625bed5c45746144fb26b066/finlab-1.5.5-cp313-cp313-win_amd64.whl", hash = "sha256:2168a04f49657d58c31c2187a69f9d540b9a23cebf663a135b45033f31bbe3c5", size = 2347974, upload-time = "2025-11-21T13:42:46.715Z" },
+    { url = "https://files.pythonhosted.org/packages/13/df/f7e033f43dfaf5d01253b00370ff09c7f50367194d720034119242e389ee/finlab-1.5.5-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:f3b8bf12bf3bc7dca6adbbeb06f216a8d489cfb04083245c7265f3d72060323f", size = 3069490, upload-time = "2025-11-21T13:42:48.075Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/af/fc1ed36518dcd6556cd2178a267be9b079aefddb948bb6a451ab1a7d4119/finlab-1.5.5-cp314-cp314-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e839e8f7a35f4de63c52b989691197af132be7f60431c5018201ac16fa23fa24", size = 6500229, upload-time = "2025-11-21T13:42:49.334Z" },
+    { url = "https://files.pythonhosted.org/packages/52/54/819e950f098812bf91994083e6b82a4fe9a777f88023f838f0fe7a620e9f/finlab-1.5.5-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5501be12925801ce55afc5dde16e2b8d83ec55140b4387de2eaa24671ce2aa87", size = 6680649, upload-time = "2025-11-21T13:42:50.875Z" },
+    { url = "https://files.pythonhosted.org/packages/40/9a/35a96e7645826129f81ce7ea7ea5d957f197808bd0a5de35dae462b0db33/finlab-1.5.5-cp314-cp314-win_amd64.whl", hash = "sha256:f94a457a10a0b5b7f19b9a585eb6f2d9d5f1f715589381574d1706eee9ed2555", size = 2358928, upload-time = "2025-11-21T13:42:52.447Z" },
 ]
 
 [[package]]
