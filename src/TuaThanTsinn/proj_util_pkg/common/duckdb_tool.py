@@ -51,19 +51,35 @@ def insert_dataframe_to_duckdb(
         if if_exists == 'replace':
             conn.execute(f"DROP TABLE IF EXISTS {table_name}")
             
-        conn.execute(f"""
-            CREATE TABLE IF NOT EXISTS {table_name} AS 
-            SELECT * FROM df LIMIT 0
-        """)
+        # 先檢查表格是否已存在
+        table_exists = conn.execute(f"""
+            SELECT COUNT(*) FROM information_schema.tables 
+            WHERE table_name = '{table_name}'
+        """).fetchone()[0] > 0
+        
+        if not table_exists:
+            # 建立新表格結構
+            conn.execute(f"""
+                CREATE TABLE {table_name} AS 
+                SELECT * FROM df LIMIT 0
+            """)
+            # 新增 create_datetime 欄位，預設值為當前時間
+            conn.execute(f"""
+                ALTER TABLE {table_name} 
+                ADD COLUMN create_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            """)
         
         # 註冊 DataFrame
         conn.register('temp_df', df)
+        
+        # 取得 DataFrame 的欄位列表（用雙引號包裹以處理保留字和特殊字符）
+        df_columns = ', '.join([f'"{col}"' for col in df.columns.tolist()])
         
         # 嘗試批次插入（避免重複）
         if date_column in df.columns:
             # 先查詢已存在的日期
             existing_dates = conn.execute(f"""
-                SELECT DISTINCT {date_column} FROM {table_name}
+                SELECT DISTINCT "{date_column}" FROM {table_name}
             """).fetchall()
             existing_dates = [row[0] for row in existing_dates]
             
@@ -72,8 +88,8 @@ def insert_dataframe_to_duckdb(
                 conn.execute(f"""
                     CREATE OR REPLACE TEMP TABLE new_data AS
                     SELECT * FROM temp_df 
-                    WHERE {date_column} NOT IN (
-                        SELECT {date_column} FROM {table_name}
+                    WHERE "{date_column}" NOT IN (
+                        SELECT "{date_column}" FROM {table_name}
                     )
                 """)
             else:
@@ -82,10 +98,10 @@ def insert_dataframe_to_duckdb(
                     SELECT * FROM temp_df
                 """)
             
-            # 插入新資料
+            # 插入新資料（明確指定欄位，讓有預設值的欄位自動填入）
             conn.execute(f"""
-                INSERT INTO {table_name} 
-                SELECT * FROM new_data
+                INSERT INTO {table_name} ({df_columns})
+                SELECT {df_columns} FROM new_data
             """)
             
             # 計算插入的筆數
@@ -94,10 +110,10 @@ def insert_dataframe_to_duckdb(
             return new_count
             
         else:
-            # 如果沒有日期欄位，直接插入
+            # 如果沒有日期欄位，直接插入（明確指定欄位）
             conn.execute(f"""
-                INSERT INTO {table_name} 
-                SELECT * FROM temp_df
+                INSERT INTO {table_name} ({df_columns})
+                SELECT {df_columns} FROM temp_df
             """)
             logger.info(f"成功插入 {len(df)} 筆資料到 {table_name}")
             return len(df)
@@ -138,4 +154,3 @@ def get_table_info(
     except Exception as e:
         logger.error(f"獲取表格資訊時發生錯誤: {e}")
         raise
-
