@@ -374,15 +374,15 @@ def run_ma_alignment_stock_selection():
 
 @task(name="執行CIS選股分析")
 def run_cis_stock_selection():
-    """執行CIS選股分析 - 使用 papermill 執行 twstock_cis選股.ipynb"""
+    """執行CIS選股分析 - 使用 papermill 執行 twstock_cis_2560選股.ipynb"""
 
     logger = get_run_logger()
     logger.info("🔍 開始執行CIS選股分析...")
 
     try:
         # 定義檔案路徑
-        input_notebook = CURRENT_DIR / "twstock_cis選股.ipynb"
-        output_notebook = CURRENT_DIR / "twstock_cis選股_executed.ipynb"
+        input_notebook = CURRENT_DIR / "twstock_cis_2560選股.ipynb"
+        output_notebook = CURRENT_DIR / "twstock_cis_2560選股_executed.ipynb"
 
         # 確保輸出目錄存在
         output_dir = PROJECT_ROOT / "output" / "ANA001_選股結果"
