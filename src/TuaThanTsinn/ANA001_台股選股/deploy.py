@@ -438,6 +438,72 @@ def run_cis_stock_selection():
         raise
 
 
+@task(name="執行RSMACD選股分析")
+def run_rsmacd_stock_selection():
+    """執行RSMACD指標選股分析 - 使用 papermill 執行 twstock_rsmacd.ipynb"""
+
+    logger = get_run_logger()
+    logger.info("🔍 開始執行RSMACD選股分析...")
+
+    try:
+        # 定義檔案路徑
+        input_notebook = CURRENT_DIR / "twstock_rsmacd.ipynb"
+        output_notebook = CURRENT_DIR / "twstock_rsmacd_executed.ipynb"
+
+        # 確保輸出目錄存在
+        output_dir = PROJECT_ROOT / "output" / "ANA001_選股結果"
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        logger.info(f"📓 執行 notebook: {input_notebook}")
+
+        # 使用 papermill 執行 notebook
+        pm.execute_notebook(
+            input_path=str(input_notebook),
+            output_path=str(output_notebook),
+            parameters={},
+            log_output=True,
+            progress_bar=False
+        )
+
+        logger.info("✅ Notebook 執行完成")
+
+        # 儲存執行結果摘要
+        summary_path = output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M')}_ANA001_07_rsmacd_analysis_deploy.json"
+        summary = {
+            "analysis_time": datetime.now().isoformat(),
+            "notebook_executed": str(output_notebook),
+            "success": True
+        }
+
+        with open(summary_path, 'w', encoding='utf-8') as f:
+            json.dump(summary, f, ensure_ascii=False, indent=2)
+
+        logger.info(f"📊 執行摘要已儲存至: {summary_path}")
+
+        return {
+            "method": "RSMACD選股",
+            "output_file": str(output_notebook),
+            "analysis_time": datetime.now().isoformat(),
+            "notebook_path": str(output_notebook)
+        }
+
+    except Exception as e:
+        logger.error(f"❌ RSMACD選股分析發生錯誤: {str(e)}")
+
+        # 儲存錯誤資訊
+        error_summary = {
+            "analysis_time": datetime.now().isoformat(),
+            "error_message": str(e),
+            "success": False
+        }
+
+        error_path = output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M')}_ANA001_07_rsmacd_analysis_deploy_error.json"
+        with open(error_path, 'w', encoding='utf-8') as f:
+            json.dump(error_summary, f, ensure_ascii=False, indent=2)
+
+        raise
+
+
 @flow(name="ANA001_台股選股", log_prints=True)
 def do_ana001_flow():
     """ ANA001_台股選股流程 """
@@ -452,6 +518,7 @@ def do_ana001_flow():
         ana001_04_bollinger_result = run_bollinger_stock_selection()
         ana001_05_ma_alignment_result = run_ma_alignment_stock_selection()
         ana001_06_cis_result = run_cis_stock_selection()
+        ana001_07_rsmacd_result = run_rsmacd_stock_selection()
 
         # 收集所有結果
         all_results = [
@@ -461,6 +528,7 @@ def do_ana001_flow():
             ana001_04_bollinger_result,
             ana001_05_ma_alignment_result,
             ana001_06_cis_result,
+            ana001_07_rsmacd_result,
         ]
 
         logger.info("🎉 ANA001_台股選股 流程完成！")
