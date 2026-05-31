@@ -303,6 +303,75 @@ def run_dpl001_03_twstock_topic_collect():
         raise
 
 
+@task(name="執行集保餘額查詢收集")
+def run_dpl001_05_tdcc_balance_collect():
+    """執行集保餘額查詢收集 - 使用 papermill 執行 collect_集保餘額查詢.ipynb"""
+
+    logger = get_run_logger()
+    logger.info("🔍 開始執行集保餘額查詢收集...")
+
+    try:
+        # 定義檔案路徑
+        input_notebook = CURRENT_DIR / "collect_集保餘額查詢.ipynb"
+        output_notebook = CURRENT_DIR / "collect_集保餘額查詢_executed.ipynb"
+
+        # 確保輸出目錄存在
+        output_dir = PROJECT_ROOT / "output" / "DPL001_台股數據收集"
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        logger.info(f"📓 執行 notebook: {input_notebook}")
+
+        # 使用 papermill 執行 notebook
+        pm.execute_notebook(
+            input_path=str(input_notebook),
+            output_path=str(output_notebook),
+            parameters={
+                # 可以在這裡傳遞參數給 notebook
+                # 例如: 'analysis_date': datetime.now().strftime('%Y-%m-%d')
+            },
+            log_output=True,
+            progress_bar=False
+        )
+
+        logger.info("✅ Notebook 執行完成")
+
+        # 儲存執行結果摘要
+        summary_path = output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M')}_DPL001_05_集保餘額查詢收集_deploy.json"
+        summary = {
+            "analysis_time": datetime.now().isoformat(),
+            "notebook_executed": str(output_notebook),
+            "success": True
+        }
+
+        with open(summary_path, 'w', encoding='utf-8') as f:
+            json.dump(summary, f, ensure_ascii=False, indent=2)
+
+        logger.info(f"📊 執行摘要已儲存至: {summary_path}")
+
+        return {
+            "method": "DPL001_05_集保餘額查詢收集",
+            "output_file": str(output_notebook),
+            "analysis_time": datetime.now().isoformat(),
+            "notebook_path": str(output_notebook)
+        }
+
+    except Exception as e:
+        logger.error(f"❌ DPL001_05_集保餘額查詢收集 發生錯誤: {str(e)}")
+
+        # 儲存錯誤資訊
+        error_summary = {
+            "analysis_time": datetime.now().isoformat(),
+            "error_message": str(e),
+            "success": False
+        }
+
+        error_path = output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M')}_DPL001_05_集保餘額查詢收集_deploy_error.json"
+        with open(error_path, 'w', encoding='utf-8') as f:
+            json.dump(error_summary, f, ensure_ascii=False, indent=2)
+
+        raise
+
+
 @flow(name="DPL001_台股數據收集", log_prints=True)
 def do_dpl001_flow():
     """ DPL001_台股數據收集流程 """
@@ -315,9 +384,10 @@ def do_dpl001_flow():
         dpl001_01_twstock_info_result = run_dpl001_01_twstock_info_collect()
         dpl001_02_twstock_close_info_result = run_dpl001_02_twstock_close_info_collect()
         dpl001_04_securities_giro_deposit_result = run_dpl001_04_securities_giro_deposit_collect()
+        dpl001_05_tdcc_balance_result = run_dpl001_05_tdcc_balance_collect()
 
         # 收集所有結果
-        all_results = [dpl001_01_twstock_info_result, dpl001_02_twstock_close_info_result, dpl001_04_securities_giro_deposit_result]
+        all_results = [dpl001_01_twstock_info_result, dpl001_02_twstock_close_info_result, dpl001_04_securities_giro_deposit_result, dpl001_05_tdcc_balance_result]
 
         logger.info("🎉 DPL001_台股數據收集 流程完成！")
         return {
